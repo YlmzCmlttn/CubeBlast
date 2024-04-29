@@ -25,7 +25,7 @@ public class CameraScaler : MonoBehaviour
     {
         int x = size.Width - 1; int y = size.Height - 1;
 
-        Vector3 tempPosition = new Vector3(x / 2, y / 2 + yOffset, cameraOffset);
+        Vector3 tempPosition = new Vector3(x / 2.0f, y / 2.0f + yOffset, cameraOffset);
         transform.position = tempPosition;
         /*if (size.Width >= size.Height)
         {

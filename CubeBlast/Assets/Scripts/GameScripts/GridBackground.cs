@@ -12,6 +12,7 @@ public class GridBackground : MonoBehaviour
     public float xOffset;
     public float yOffset;
     public bool updated;
+    public GameObject spriteMask;
 
     void Start()
     {
@@ -20,12 +21,15 @@ public class GridBackground : MonoBehaviour
     }
     void CreateBackground()
     {
+        spriteMask.transform.position = new Vector3((board.Size.Width / 2.0f) - 0.5f, (board.Size.Height / 2.0f) - 0.5f, 0);
+        spriteMask.transform.localScale = new Vector3(board.Size.Width, (board.Size.Height - 1) + (162.0f / 142.0f), 1);
+
         GameObject blackGridBackground = new GameObject("blackGridBackground");
         SpriteRenderer spriteRenderer = blackGridBackground.AddComponent<SpriteRenderer>();
         spriteRenderer.color = Color.black;
         spriteRenderer.sprite = backgroundSprite;
         blackGridBackground.transform.parent = this.transform;
-        blackGridBackground.transform.position = new Vector3((board.Size.Width/2.0f)-0.5f, (((board.Size.Height - 1) + (162.0f / 142.0f))/2.0f)-0.5f, 20);
+        blackGridBackground.transform.position = new Vector3((board.Size.Width / 2.0f) - 0.5f, (board.Size.Height / 2.0f) - 0.5f, 0);
         blackGridBackground.transform.localScale = new Vector3(board.Size.Width, (board.Size.Height-1)+(162.0f / 142.0f), 1);
 
         GameObject bottomleftCorner = new GameObject("bottomleftCorner");

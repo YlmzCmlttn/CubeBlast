@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveData:
     currentLevel: 1
+    finished: 0
 --- !u!4 &7007157
 Transform:
   m_ObjectHideFlags: 0
