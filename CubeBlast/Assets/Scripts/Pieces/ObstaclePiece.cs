@@ -10,6 +10,7 @@ public class ObstaclePiece : Piece
 
     public PieceType[] gettingDamage;
     public int hp;
+    bool destroyed = false;
     [SerializeField] private GameObject m_DestroyParticle;
 
     public override void DamagedBy(PieceType pieceType)
@@ -38,8 +39,9 @@ public class ObstaclePiece : Piece
     }
     public override void DestroyPiece()
     {
-        if (Mathf.Abs(transform.position.y) < m_Board.Size.Height)
+        if(!destroyed)
         {
+            destroyed = true;
             FindObjectOfType<GoalManager>().CompareGoal(this.gameObject.tag);
             DestroyParticle();
             base.DestroyPiece();

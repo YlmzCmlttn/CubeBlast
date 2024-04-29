@@ -36,12 +36,16 @@ public class EndGameManager : MonoBehaviour
     }
     IEnumerator WaitForCheckCo()
     {
-        while(board.gameState == GameState.WAIT) {
-            yield return new WaitForSeconds(0.1f);        
+        yield return new WaitForSeconds(1.0f);
+        while (board.gameState == GameState.WAIT) {
+            yield return new WaitForSeconds(1.0f);
         }
-        board.gameState = GameState.LOSE;
-        FindObjectOfType<FadePanelController>().GameOver();
-        tryAgainPanel.SetActive(true);
+        if(board.gameState != GameState.WIN)
+        {
+            board.gameState = GameState.LOSE;
+            FindObjectOfType<FadePanelController>().GameOver();
+            tryAgainPanel.SetActive(true);
+        }
 
     }
     public void LoseGame()
