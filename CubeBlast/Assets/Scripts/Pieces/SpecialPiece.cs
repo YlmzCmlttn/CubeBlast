@@ -26,12 +26,13 @@ public class SpecialPiece : Piece
     }
     void TriggerComboTnt()
     {
-        m_Board.TriggerComboTntAt(position);
         DestroyPiece();
+        m_Board.TriggerComboTntAt(position);
     }
     void Trigger_Rocket_Tnt_Combo()
     {
 
+        DestroyPiece();
         for(int i = -1; i< 2; i++)
         {
             if (m_Board.isInsideTheBoard(new Position(position.X + i, position.Y)))
@@ -45,31 +46,30 @@ public class SpecialPiece : Piece
             }
         }        
 
-        DestroyPiece();
     }
     void Trigger_Rocket_Rocket_Combo()
     {
+        DestroyPiece();
         m_Board.TriggerHorizontalRocketAt(position);
         m_Board.TriggerVerticalRocketAt(position);
-        DestroyPiece();
     }
     void TriggerHorizontalRocket()
     {
-        m_Board.TriggerHorizontalRocketAt(position);
         DestroyPiece();
+        m_Board.TriggerHorizontalRocketAt(position);
     }
 
 
     void TriggerVerticalRocket()
     {
-        m_Board.TriggerVerticalRocketAt(position);
         DestroyPiece();
+        m_Board.TriggerVerticalRocketAt(position);
     }
 
     void TriggerTnt()
     {
-        m_Board.TriggerTntAt(position);
         DestroyPiece();
+        m_Board.TriggerTntAt(position);
     }
 
     public override void DamagedBy(PieceType pieceType)
@@ -103,6 +103,14 @@ public class SpecialPiece : Piece
         }
         if (matches.Count > 1)
         {
+
+            foreach (GameObject gameObject in matches)
+            {
+                if(gameObject != this.gameObject)
+                {
+                    gameObject.GetComponent<Piece>().DestroyPiece();
+                }
+            }
             if (numberOfTnt >= 2)
             {
                 TriggerComboTnt();
@@ -117,10 +125,6 @@ public class SpecialPiece : Piece
                 {
                     Trigger_Rocket_Rocket_Combo();
                 }
-            }
-            foreach (GameObject gameObject in matches)
-            {
-                gameObject.GetComponent<Piece>().DestroyPiece();
             }
         }
         else

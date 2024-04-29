@@ -20,7 +20,6 @@ public class HintManager
 
                         if (m_Board.allPieces[i, j].GetComponent<Piece>().Type == PieceType.CUBE)
                         {
-                            m_Board.allPieces[i, j].GetComponent<CubePiece>().MakeDefaultSprite();
                             currentMatches.Clear();
                             CompareAdjancents(currentMatches, m_Board, new Vector2Int(i, j), m_Board.allPieces[i, j].tag, checkedCubes);
                             if (currentMatches.Count >= 5)
@@ -38,6 +37,18 @@ public class HintManager
                                     CubePiece cube = gameObject.GetComponent<CubePiece>();
                                     cube.MakeRocketHint();
                                 }
+                            }
+                            else if(currentMatches.Count > 0)
+                            {
+                                foreach (GameObject gameObject in currentMatches)
+                                {
+                                    CubePiece cube = gameObject.GetComponent<CubePiece>();
+                                    cube.MakeDefaultSprite();
+                                }
+                            }
+                            else
+                            {
+                                m_Board.allPieces[i, j].GetComponent<CubePiece>().MakeDefaultSprite();
                             }
 
                         }

@@ -53,12 +53,12 @@ public class CubePiece : Piece
         this.gameObject.GetComponent<SpriteRenderer>().sprite = rocketHintSprite;
     }
 
-    void HitAdjancents(Position position)
+    void HitAdjancents(Position position, List<GameObject> hitted)
     {
-        HitPieceAt(position.Vector + Vector2.left);
-        HitPieceAt(position.Vector + Vector2.right);
-        HitPieceAt(position.Vector + Vector2.down);
-        HitPieceAt(position.Vector + Vector2.up);
+        HitPieceAt(position.Vector + Vector2.left,hitted);
+        HitPieceAt(position.Vector + Vector2.right, hitted);
+        HitPieceAt(position.Vector + Vector2.down, hitted);
+        HitPieceAt(position.Vector + Vector2.up, hitted);
     }
     public override void DamagedBy(PieceType pieceType)
     {
@@ -69,11 +69,14 @@ public class CubePiece : Piece
     }
 
 
-    void HitPieceAt(Vector2 position)
+    void HitPieceAt(Vector2 position, List<GameObject> hitted)
     {
         if (m_Board.isInsideTheBoardAndNotNull((int)position.x, (int)position.y))
         {
-            m_Board.allPieces[(int)position.x, (int)position.y].GetComponent<Piece>().DamagedBy(PieceType.CUBE);
+            if(!hitted.Contains(m_Board.allPieces[(int)position.x, (int)position.y])) {
+                m_Board.allPieces[(int)position.x, (int)position.y].GetComponent<Piece>().DamagedBy(PieceType.CUBE);
+                hitted.Add(m_Board.allPieces[(int)position.x, (int)position.y]);
+            }
         }
     }
     private IEnumerator DestroyPieceCo()
@@ -89,21 +92,19 @@ public class CubePiece : Piece
     }
     public override void DestroyPiece()
     {
-        if (Mathf.Abs(transform.position.y) < m_Board.Size.Height)
+        if (m_Board.allPieces[position.X, position.Y] != null)
         {
-            if (m_Board.allPieces[position.X, position.Y] != null)
-            {
-                m_Board.allPieces[position.X, position.Y] = null;
-            }
-            StartCoroutine(DestroyPieceCo());                
+            m_Board.allPieces[position.X, position.Y] = null;
         }
+        StartCoroutine(DestroyPieceCo());
     }
     void DestroyMatches(List<GameObject> matches)
     {
+        List<GameObject> hitted =new List<GameObject>();
         foreach (GameObject gameObject in matches)
         {
             Piece cube = gameObject.GetComponent<Piece>();
-            HitAdjancents(cube.position);
+            HitAdjancents(cube.position, hitted);
             cube.DestroyPiece();
         }
     }

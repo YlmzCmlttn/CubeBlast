@@ -51,14 +51,11 @@ public abstract class Piece : MonoBehaviour
     }
     public virtual void DestroyPiece()
     {
-        if (Mathf.Abs(transform.position.y) < m_Board.Size.Height)
+        if (m_Board.allPieces[position.X, position.Y] != null)
         {
-            if (m_Board.allPieces[position.X, position.Y] != null)
-            {
-                m_Board.allPieces[position.X, position.Y] = null;
-            }
-            Destroy(this.gameObject);
+            m_Board.allPieces[position.X, position.Y] = null;
         }
+        Destroy(this.gameObject);
     }
 
 
