@@ -375,8 +375,8 @@ public class Board : MonoBehaviour
         Queue<Piece> bottomTargets = new Queue<Piece>();
         Piece topCurrentTarget = null;
         Piece bottomCurrentTarget = null;
-        Vector3 topEndPosition = new Vector3(position.X, Size.Height + 50, -10);
-        Vector3 bottomEndPosition = new Vector3(position.X, -50, -10);
+        Vector3 topEndPosition = new Vector3(position.X, Size.Height*2, -10);
+        Vector3 bottomEndPosition = new Vector3(position.X, -1*Size.Height, -10);
         for (int i = position.Y - 1; i >= 0; i--)
         {
             if (isInsideTheBoardAndNotNull(position.X, i))
@@ -460,8 +460,8 @@ public class Board : MonoBehaviour
         Queue<Piece> rightTargets = new Queue<Piece>();
         Piece leftCurrentTarget = null;
         Piece rightCurrentTarget = null;
-        Vector3 leftEndPosition = new Vector3(-20, position.Y, -10);
-        Vector3 rightEndPosition = new Vector3(Size.Width + 20, position.Y, -10);
+        Vector3 leftEndPosition = new Vector3(-1*Size.Width, position.Y, -10);
+        Vector3 rightEndPosition = new Vector3(2*Size.Width, position.Y, -10);
         for (int i = position.X - 1; i >= 0; i--)
         {
             if (isInsideTheBoardAndNotNull(i, position.Y))
