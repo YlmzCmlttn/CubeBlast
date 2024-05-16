@@ -7,6 +7,7 @@ public class GridBackground : MonoBehaviour
 {
     private Board board;
     public Sprite backgroundSprite;
+    public Sprite backgroundSpriteSliced;
     public Sprite cornerSprite;
     public Sprite lineSprite;
     public float xOffset;
@@ -17,7 +18,18 @@ public class GridBackground : MonoBehaviour
     void Start()
     {
         board = FindObjectOfType<Board>();
-        CreateBackground();
+        GameObject blackGridBackground = new GameObject("blackGridBackground");
+        SpriteRenderer spriteRenderer = blackGridBackground.AddComponent<SpriteRenderer>();
+        spriteRenderer.drawMode = SpriteDrawMode.Sliced;
+        spriteRenderer.sprite = backgroundSpriteSliced;
+        spriteRenderer.size = new Vector2(board.Size.Width + 0.2f, (board.Size.Height - 1) + (162.0f / 142.0f) + 0.2f);
+
+        blackGridBackground.transform.parent = this.transform;
+        blackGridBackground.transform.position = new Vector3((board.Size.Width / 2.0f) - 0.5f, (board.Size.Height / 2.0f) - 0.5f, 20);
+        spriteMask.transform.position = new Vector3((board.Size.Width / 2.0f) - 0.5f, (board.Size.Height / 2.0f) - 0.5f, 0);
+        spriteMask.transform.localScale = new Vector3(board.Size.Width, (board.Size.Height - 1) + (162.0f / 142.0f), 1);
+
+        //CreateBackground();
     }
     void CreateBackground()
     {

@@ -464,6 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  backgroundSpriteSliced: {fileID: 21300000, guid: 5ba4ef14b9270c041b52e29216127bd6, type: 3}
   cornerSprite: {fileID: -2066963382, guid: 0b09d5a2153fdc9478e54600ea0d53f2, type: 3}
   lineSprite: {fileID: 1830358150, guid: 0b09d5a2153fdc9478e54600ea0d53f2, type: 3}
   xOffset: -0.4
